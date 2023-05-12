@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { getSpaceUntilMaxLength } from '@testing-library/user-event/dist/utils';
 
 
 function Glass() {
@@ -70,264 +71,325 @@ function Glass() {
   return (
     <div className="glass">
       <form onSubmit={(e) => handleSubmit(e)} className="glass__form">
-        <h4>HOUSE PRICE PREDICTION ML MODEL</h4>
+            <h4>HOUSE PRICE PREDICTION ML MODEL</h4>
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth size="small">
+                  <InputLabel id="demo-select-small-label">İlçe Adı</InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    type="string"
+                    label="İlçe Adı"
+                    
+                    
+                    
+                    onChange={(e) => {
+
+                      const konumDegerleri = {
+                        'Adalar':          [40.8741659, 29.1293251],
+                        'Arnavutköy':      [41.0671774, 29.0432713],
+                        'Ataşehir':        [40.9929379, 29.1135187],
+                        'Avcılar':         [40.9799389, 28.7216689],
+                        'Bağcılar':        [41.034547, 28.8567558],
+                        'Bahçelievler':    [41.0181451, 28.4843571],
+                        'Güngören':        [41.0252791, 28.8726908],
+                        'Beylikdüzü':      [41.0037541, 28.6372583],
+                        'Şişli':           [41.0637891, 28.9831642],
+                        'Sancaktepe':      [40.9905196, 29.2288624],
+                        'Ümraniye':        [41.0256362, 29.0963049],
+                        'Beşiktaş':        [41.0428465, 29.0075283],
+                        'Esenyurt':        [41.0342862, 28.6801113],
+                        'Sarıyer':         [41.1685803, 29.0572623],
+                        'Pendik':          [40.8768715, 29.2349672],
+                        'Fatih':           [41.0091982, 28.9662187],
+                        'Büyükçekmece':    [41.021654, 28.579757],
+                        'Eyüpsultan':      [41.0478358, 28.9327383],
+                        'Başakşehir':      [41.1075794, 28.7950711],
+                        'Beyoğlu':         [41.0284233, 28.9736808],
+                        'Kartal':          [40.88858, 29.1856536],
+                        'Sultangazi':      [41.1043344, 28.8614367],
+                        'Sultanbeyli':     [40.9670242, 29.2671314],
+                        'Kadıköy':         [40.990992, 29.0254305],
+                        'Çekmeköy':        [41.0351579, 29.1739149],
+                        'Maltepe':         [40.9247539, 29.1310782],
+                        'Tuzla':           [40.8161732, 29.3034194],
+                        'Kağıthane':       [41.0812087, 28.9730151],
+                        'Zeytinburnu':     [40.9898653, 28.9037467],
+                        'Üsküdar':         [41.0265498, 29.0151321],
+                        'Küçükçekmece':    [40.9918737, 28.7711956],
+                        'Bakırköy':        [40.9782585, 28.8744461],
+                        'Silivri':         [41.0742476, 28.2481709],
+                        'Bayrampaşa':      [41.0345549, 28.9118417],
+                        'Beykoz':          [41.1176978, 29.09821095],
+                        'Çatalca':         [41.1436804, 28.4605154],
+                        'Esenler':         [41.0376175, 28.8824519],
+                        'Gaziosmanpaşa':   [41.0578322, 28.9122521],
+                        'Şile':            [41.1744067, 29.6125216] 
+                     };
+                 
+                     const ilceAdlari = {                                                                                     
+                         'Adalar': [0, 1, 0],
+                         'Arnavutköy': [0, 0, 1],
+                         'Ataşehir': [1, 0, 0],
+                         'Avcılar': [0, 1, 0],
+                         'Bağcılar': [0, 0, 1],
+                         'Bahçelievler': [0, 1, 0],
+                         'Güngören': [1, 0, 0],
+                         'Beylikdüzü': [0, 1, 0],
+                         'Şişli': [0, 1, 0],
+                         'Sancaktepe': [1, 0, 0],
+                         'Ümraniye': [0, 1, 0],
+                         'Beşiktaş': [0, 1, 0],
+                         'Esenyurt': [1, 0, 0],
+                         'Sarıyer': [0, 1, 0],
+                         'Pendik': [0, 0, 1],
+                         'Fatih': [0, 1, 0],
+                         'Büyükçekmece': [0, 0, 1],
+                         'Eyüpsultan': [0, 0, 1],
+                         'Başakşehir': [0, 1, 0],
+                         'Beyoğlu': [1, 0, 0],
+                         'Kartal': [0, 0, 1],
+                         'Sultangazi': [0, 0, 1],
+                         'Sultanbeyli': [1, 0, 0],
+                         'Kadıköy': [0, 1, 0],
+                         'Çekmeköy': [0, 1, 0],
+                         'Maltepe': [0, 1, 0],
+                         'Tuzla': [0, 1, 0],
+                         'Kağıthane': [0, 1, 0],
+                         'Zeytinburnu': [0, 1, 0],
+                         'Üsküdar': [1, 0, 0],
+                         'Küçükçekmece': [0, 0, 1],
+                         'Bakırköy': [0, 0, 1],
+                         'Silivri': [0, 0, 1],
+                         'Bayrampaşa': [0, 0, 1],
+                         'Beykoz': [1, 0, 0],
+                         'Çatalca': [0, 1, 0],
+                         'Esenler': [0, 1, 0],
+                         'Gaziosmanpaşa': [1, 0, 0],
+                         'Şile': [0, 1, 0]
+                     };
+                 
+                     const [newClusterA, newClusterB,newClusterC] = ilceAdlari[e.target.value] || [0, 0];
+                     setCluster_A(newClusterA);
+                     setCluster_B(newClusterB);
+                     setCluster_C(newClusterC);
+                               
+                     const [newLat, newLng] = konumDegerleri[e.target.value] || [0, 0];
+                     setLat(newLat);
+                     setLng(newLng);
+                     
+                    }}
+                  >
+                        <MenuItem value={'Adalar'}>Adalar</MenuItem>
+                        <MenuItem value={'Arnavutköy'}>Arnavutköy</MenuItem>
+                        <MenuItem value={'Ataşehir'}>Ataşehir</MenuItem>
+                        <MenuItem value={'Avcılar'}>Avcılar</MenuItem>
+                        <MenuItem value={'Bağcılar'}>Bağcılar</MenuItem>
+                        <MenuItem value={'Bahçelievler'}>Bahçelievler</MenuItem>
+                        <MenuItem value={'Güngören'}>Güngören</MenuItem>
+                        <MenuItem value={'Beylikdüzü'}>Beylikdüzü</MenuItem>
+                        <MenuItem value={'Şişli'}>Şişli</MenuItem>
+                        <MenuItem value={'Sancaktepe'}>Sancaktepe</MenuItem>
+                        <MenuItem value={'Ümraniye'}>Ümraniye</MenuItem>
+                        <MenuItem value={'Beşiktaş'}>Beşiktaş</MenuItem>
+                        <MenuItem value={'Esenyurt'}>Esenyurt</MenuItem>
+                        <MenuItem value={'Sarıyer'}>Sarıyer</MenuItem>
+                        <MenuItem value={'Pendik'}>Pendik</MenuItem>
+                        <MenuItem value={'Fatih'}>Fatih</MenuItem>
+                        <MenuItem value={'Büyükçekmece'}>Büyükçekmece</MenuItem>
+                        <MenuItem value={'Eyüpsultan'}>Eyüpsultan</MenuItem>
+                        <MenuItem value={'Başakşehir'}>Başakşehir</MenuItem>
+                        <MenuItem value={'Beyoğlu'}>Beyoğlu</MenuItem>
+                        <MenuItem value={'Kartal'}>Kartal</MenuItem>
+                        <MenuItem value={'Sultangazi'}>Sultangazi</MenuItem>
+                        <MenuItem value={'Sultanbeyli'}>Sultanbeyli</MenuItem>
+                        <MenuItem value={'Kadıköy'}>Kadıköy</MenuItem>
+                        <MenuItem value={'Çekmeköy'}>Çekmeköy</MenuItem>
+                        <MenuItem value={'Maltepe'}>Maltepe</MenuItem>
+                        <MenuItem value={'Tuzla'}>Tuzla</MenuItem>
+                        <MenuItem value={'Kağıthane'}>Kağıthane</MenuItem>
+                        <MenuItem value={'Zeytinburnu'}>Zeytinburnu</MenuItem>
+                        <MenuItem value={'Üsküdar'}>Üsküdar</MenuItem>
+                        <MenuItem value={'Küçükçekmece'}>Küçükçekmece</MenuItem>
+                        <MenuItem value={'Bakırköy'}>Bakırköy</MenuItem>
+                        <MenuItem value={'Silivri'}>Silivri</MenuItem>
+                        <MenuItem value={'Bayrampaşa'}>Bayrampaşa</MenuItem>
+                        <MenuItem value={'Beykoz'}>Beykoz</MenuItem>
+                        <MenuItem value={'Çatalca'}>Çatalca</MenuItem>
+                        <MenuItem value={'Esenler'}>Esenler</MenuItem>
+                        <MenuItem value={'Gaziosmanpaşa'}>Gaziosmanpaşa</MenuItem>
+                        <MenuItem value={'Şile'}>Şile</MenuItem>                    
+                  </Select>
+                </FormControl>
+              </Box>
+
 
         <div className="glass__form__group">
-          <input
-            id="ilce_adi"
-            className="glass__form__input"
-            placeholder="İlçe Adı"
-            required
-            autoFocus
-            title="İlçe Adı"
-            type="string"
 
-            onChange={(e) => {
-
-              const konumDegerleri = {
-                'Adalar':          [40.8741659, 29.1293251],
-                'Arnavutköy':      [41.0671774, 29.0432713],
-                'Ataşehir':        [40.9929379, 29.1135187],
-                'Avcılar':         [40.9799389, 28.7216689],
-                'Bağcılar':        [41.034547, 28.8567558],
-                'Bahçelievler':    [41.0181451, 28.4843571],
-                'Güngören':        [41.0252791, 28.8726908],
-                'Beylikdüzü':      [41.0037541, 28.6372583],
-                'Şişli':           [41.0637891, 28.9831642],
-                'Sancaktepe':      [40.9905196, 29.2288624],
-                'Ümraniye':        [41.0256362, 29.0963049],
-                'Beşiktaş':        [41.0428465, 29.0075283],
-                'Esenyurt':        [41.0342862, 28.6801113],
-                'Sarıyer':         [41.1685803, 29.0572623],
-                'Pendik':          [40.8768715, 29.2349672],
-                'Fatih':           [41.0091982, 28.9662187],
-                'Büyükçekmece':    [41.021654, 28.579757],
-                'Eyüpsultan':      [41.0478358, 28.9327383],
-                'Başakşehir':      [41.1075794, 28.7950711],
-                'Beyoğlu':         [41.0284233, 28.9736808],
-                'Kartal':          [40.88858, 29.1856536],
-                'Sultangazi':      [41.1043344, 28.8614367],
-                'Sultanbeyli':     [40.9670242, 29.2671314],
-                'Kadıköy':         [40.990992, 29.0254305],
-                'Çekmeköy':        [41.0351579, 29.1739149],
-                'Maltepe':         [40.9247539, 29.1310782],
-                'Tuzla':           [40.8161732, 29.3034194],
-                'Kağıthane':       [41.0812087, 28.9730151],
-                'Zeytinburnu':     [40.9898653, 28.9037467],
-                'Üsküdar':         [41.0265498, 29.0151321],
-                'Küçükçekmece':    [40.9918737, 28.7711956],
-                'Bakırköy':        [40.9782585, 28.8744461],
-                'Silivri':         [41.0742476, 28.2481709],
-                'Bayrampaşa':      [41.0345549, 28.9118417],
-                'Beykoz':          [41.1176978, 29.09821095],
-                'Çatalca':         [41.1436804, 28.4605154],
-                'Esenler':         [41.0376175, 28.8824519],
-                'Gaziosmanpaşa':   [41.0578322, 28.9122521],
-                'Şile':            [41.1744067, 29.6125216] 
-             };
-         
-             const ilceAdlari = {                                                                                     
-                 'Adalar': [0, 1, 0],
-                 'Arnavutköy': [0, 0, 1],
-                 'Ataşehir': [1, 0, 0],
-                 'Avcılar': [0, 1, 0],
-                 'Bağcılar': [0, 0, 1],
-                 'Bahçelievler': [0, 1, 0],
-                 'Güngören': [1, 0, 0],
-                 'Beylikdüzü': [0, 1, 0],
-                 'Şişli': [0, 1, 0],
-                 'Sancaktepe': [1, 0, 0],
-                 'Ümraniye': [0, 1, 0],
-                 'Beşiktaş': [0, 1, 0],
-                 'Esenyurt': [1, 0, 0],
-                 'Sarıyer': [0, 1, 0],
-                 'Pendik': [0, 0, 1],
-                 'Fatih': [0, 1, 0],
-                 'Büyükçekmece': [0, 0, 1],
-                 'Eyüpsultan': [0, 0, 1],
-                 'Başakşehir': [0, 1, 0],
-                 'Beyoğlu': [1, 0, 0],
-                 'Kartal': [0, 0, 1],
-                 'Sultangazi': [0, 0, 1],
-                 'Sultanbeyli': [1, 0, 0],
-                 'Kadıköy': [0, 1, 0],
-                 'Çekmeköy': [0, 1, 0],
-                 'Maltepe': [0, 1, 0],
-                 'Tuzla': [0, 1, 0],
-                 'Kağıthane': [0, 1, 0],
-                 'Zeytinburnu': [0, 1, 0],
-                 'Üsküdar': [1, 0, 0],
-                 'Küçükçekmece': [0, 0, 1],
-                 'Bakırköy': [0, 0, 1],
-                 'Silivri': [0, 0, 1],
-                 'Bayrampaşa': [0, 0, 1],
-                 'Beykoz': [1, 0, 0],
-                 'Çatalca': [0, 1, 0],
-                 'Esenler': [0, 1, 0],
-                 'Gaziosmanpaşa': [1, 0, 0],
-                 'Şile': [0, 1, 0]
-             };
-         
-             const [newClusterA, newClusterB,newClusterC] = ilceAdlari[e.target.value] || [0, 0];
-             setCluster_A(newClusterA);
-             setCluster_B(newClusterB);
-             setCluster_C(newClusterC);
-                       
-             const [newLat, newLng] = konumDegerleri[e.target.value] || [0, 0];
-             setLat(newLat);
-             setLng(newLng);
-             
-            }}
-          />
-        </div>
-
-        <div className="glass__form__group">
-          <input
-            id="net_alan"
-            className="glass__form__input"
-            placeholder="Net alan"
-            required
-            autoFocus
-            min="0"
-            max="10000"
-            pattern="[0-9]{.5}"
-            title="Net alan"
-            type="number"
-            value={net_alan}
-            onChange={(e) => setNet_alan(e.target.value)}
-          />
-        </div>
-
-        <div className="glass__form__group">
-          <input
-            id="brut_alan"
-            className="glass__form__input"
-            placeholder="Brut alan"
-            required
-            min="0"
-            max="10000"
-            type="number"
-            title="Brut alan"
-            pattern="[0-9]{.5}"
-            value={brut_alan}
-            onChange={(e) => setBrut_alan(e.target.value)}
-          />
-        </div>
-
-        <div className="glass__form__group">
-            <input
-            id="kredi_durumu"
-            className="glass__form__input"
-            placeholder="Kredi Durumu"
-            required
-            min="0"
-            max="10000"
-            type="number"
-            title="Kredi Durumu"
-            pattern="[0-9]{.5}"
-            value = {kredi_durumu}
-            onChange={(e) => setKredi_durumu(e.target.value)}
-            />
-        </div>
-
-        <div className="glass__form__group">
-          <input
-            id="kat_sayisi"
-            className="glass__form__input"
-            placeholder="Kat Sayısı"
-            required
-            min="0"
-            max="100"
-            type="number"
-            title="Kat Sayısı"
-            pattern="[0-9]{.3}"
-            value = {kat_sayisi}
-            onChange={(e) => setKat_sayisi(e.target.value)}
-          />
-        </div>
-
-        <div className="glass__form__group">
-            <input
-                id="isitma"
-                className="glass__form__input"
-                placeholder="Isıtma"
-                required
-                min="0"
-                max="100"
+            <Box component="form" sx={{ minWidth: 120}} noValidate autoComplete="off"  >
+              <FormControl fullWidth >
+              <InputLabel htmlFor="outlined-adornment-size-small">Net Alan</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-size-small"
+                endAdornment={<InputAdornment position="end">m2</InputAdornment>}
+                label="Net Alan"
                 type="number"
-                title="Isıtma"
-                value = {isitma}
-                pattern="[0-9]{.3}"
-                
-                onChange={(e) => setIsitma(e.target.value)}
+                value={net_alan}
+                onChange={(e) => setNet_alan(e.target.value)}
+                size="small"
+                sx={{ alignItems: 'center'}}
               />
+              </FormControl>
+            </Box>
+        </div>
+
+        <div className="glass__form__group">
+            <Box component="form" sx={{ minWidth: 120 }} noValidate autoComplete="off" >
+              <FormControl fullWidth>
+              <InputLabel htmlFor="outlined-adornment-amount">Brüt Alan</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-amount"
+                endAdornment={<InputAdornment position="end">m2</InputAdornment>}
+                label="Brüt Alan"
+                type="number"
+                value={brut_alan}
+                onChange={(e) => setBrut_alan(e.target.value)}
+                size="small"
+              />
+              </FormControl>
+            </Box>
+        </div>
+
+        <div className="glass__form__group">
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth size="small">
+                  <InputLabel id="demo-select-small-label">Kredi Durumu</InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    type="number"
+                    label="Kredi Durumu"
+                    onChange={(e) => setKredi_durumu(e.target.value)}
+                    
+                  >
+                    <MenuItem value={1}>Krediye Uygun</MenuItem>
+                    <MenuItem value={0}>Krediye Uygun Değil</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>          
+        </div>
+
+        <div className="glass__form__group">
+           <Box component="form" sx={{ minWidth: 120 }}  noValidate autoComplete="off"
+           
+           >
+              <FormControl fullWidth>
+                    
+              <TextField id="outlined-basic" label="Kat Sayısı" variant="outlined" 
+               value = {kat_sayisi}
+               onChange={(e) => setKat_sayisi(e.target.value)}
+               size="small"
+              />
+              </FormControl>
+           </Box>          
+        </div>
+
+        <div className="glass__form__group">
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth size="small">
+                  <InputLabel id="demo-select-small-label">Isıtma</InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    type="number"
+                    label="Isıtma"
+                    onChange={(e) => setIsitma(e.target.value)}
+                    
+                  >
+                    <MenuItem value={1}>Soba</MenuItem>
+                    <MenuItem value={2}>Kalorifer</MenuItem>
+                    <MenuItem value={3}>Yerden Isıtma</MenuItem>
+                    
+                  </Select>
+                </FormControl>
+              </Box>          
       
         </div>
 
         <div className="glass__form__group">
-          <input
-            id="bulundugu_kat"
-            className="glass__form__input"
-            placeholder="Bulundugu Kat"
-            required
-            min="0"
-            max="100"
-            type="number"
-            title="Bulundugu Kat"
-            pattern="[0-9]{.3}"
-            value={bulundugu_kat}
-            onChange={(e) => setBulundugu_kat(e.target.value)}
-          />
+           <Box component="form" sx={{ minWidth: 120 }}  noValidate autoComplete="off"
+           
+           >
+              <FormControl fullWidth>
+                    
+              <TextField id="outlined-basic" label="Bulunduğu Kat" variant="outlined" 
+               value={bulundugu_kat}
+               onChange={(e) => setBulundugu_kat(e.target.value)}
+               size="small"
+              />
+              </FormControl>
+           </Box> 
         </div>
 
         <div className="glass__form__group">
-          <input
-            id="bina_yasi"
-            className="glass__form__input"
-            placeholder="Bina Yasi"
-            required
-            min="0"
-            max="100"
-            type="number"
-            title="Bina yasi"
-            pattern="[0-9]{.3}"
-            value={bina_yasi}
-            onChange={(e) => setBina_yasi(e.target.value)}
-          />
+           <Box component="form" sx={{ minWidth: 120 }}  noValidate autoComplete="off"
+           
+           >
+              <FormControl fullWidth>
+                    
+              <TextField id="outlined-basic" label="Bina Yaşı" variant="outlined" 
+               value={bina_yasi}
+               onChange={(e) => setBina_yasi(e.target.value)}
+               size="small"
+              />
+              </FormControl>
+           </Box> 
         </div>
 
         <div className="glass__form__group">
-          <input
-                  id="esya_durumu"
-                  className="glass__form__input"
-                  placeholder="Eşya Durumu"
-                  required
-                  min="0"
-                  max="100"
-                  type="number"
-                  title="Eşya Durumu"
-                  value = {esya}
-                  pattern="[0-9]{.3}"
-                  
-                  onChange={(e) => setEsya(e.target.value)}
-                />
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth size="small">
+                  <InputLabel id="demo-select-small-label">Eşya Durumu</InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    type="number"
+                    label="Eşya Durumu"
+                    onChange={(e) => setEsya(e.target.value)}
+                    
+                  >
+                    <MenuItem value={1}>Eşyalı</MenuItem>
+                    <MenuItem value={0}>Eşyasız</MenuItem>
+                    <MenuItem value={2}>Sadece Beyaz Eşya</MenuItem>
+                    <MenuItem value={3}>Sadece Mutfak</MenuItem>
+                    
+                  </Select>
+                </FormControl>
+              </Box>
         </div>
 
         <div className="glass__form__group">
-                <input
-                  id="kullanım_durumu"
-                  className="glass__form__input"
-                  placeholder="Kullanım Durumu"
-                  required
-                  min="0"
-                  max="100"
-                  type="number"
-                  title="Kullanım Durumu"
-                  value = {kullanim_durumu}
-                  pattern="[0-9]{.3}"
-                 
-                  onChange={(e) => setKullanim_durumu(e.target.value)}
-                />
+
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth size="small">
+                  <InputLabel id="demo-select-small-label">Kullanım Durumu</InputLabel>
+                  <Select
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
+                    type="number"
+                    label="Kullanım Durumu"
+                    onChange={(e) => setKullanim_durumu(e.target.value)}
+                    
+                  >
+                    <MenuItem value={0}>Boş</MenuItem>
+                    <MenuItem value={1}>Mülk Sahibi</MenuItem>
+                    <MenuItem value={2}>Kiracılı</MenuItem>
+                    
+                  </Select>
+                </FormControl>
+              </Box>
+
 
               
         </div>
@@ -336,14 +398,15 @@ function Glass() {
                 
 
               <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Toplam Oda Sayısı</InputLabel>
+                <FormControl fullWidth size="small">
+                  <InputLabel id="demo-select-small-label">Toplam Oda Sayısı</InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="demo-select-small-label"
+                    id="demo-select-small"
 
                     label="Toplam Oda Sayısı"
                     onChange={(e) => setToplam_oda_sayisi(e.target.value)}
+                    
                   >
                     <MenuItem value={1}>1+0</MenuItem>
                     <MenuItem value={2}>1+1</MenuItem>
@@ -379,32 +442,6 @@ function Glass() {
               </Box>
         </div>
 
-
-        <div className="glass__form__group">
-              <Box component="form" sx={{ minWidth: 120 }}
-            noValidate
-            autoComplete="off"
-              >
-            <FormControl fullWidth>
-                  
-            <TextField id="outlined-basic" label="Outlined" variant="outlined"  />
-            </FormControl>
-            </Box>
-          </div>
-
-
-          <div className="glass__form__group">
-            <Box component="form" sx={{ minWidth: 120 }} noValidate autoComplete="off" >
-              <FormControl fullWidth>
-              <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                endAdornment={<InputAdornment position="end">$</InputAdornment>}
-                label="Amount"
-              />
-              </FormControl>
-            </Box>
-          </div>
 
         <div>
         <button>
