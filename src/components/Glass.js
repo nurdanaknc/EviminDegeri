@@ -6,8 +6,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-
+import { TextField } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { getSpaceUntilMaxLength } from '@testing-library/user-event/dist/utils';
@@ -74,12 +73,13 @@ function Glass() {
             <h4>HOUSE PRICE PREDICTION ML MODEL</h4>
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth size="small">
-                  <InputLabel id="demo-select-small-label">İlçe Adı</InputLabel>
+                  <InputLabel id="demo-select-small-label" >İlçe Adı</InputLabel>
                   <Select
                     labelId="demo-select-small-label"
                     id="demo-select-small"
                     type="string"
                     label="İlçe Adı"
+                    
                     
                     
                     
@@ -226,38 +226,34 @@ function Glass() {
 
         <div className="glass__form__group">
 
-            <Box component="form" sx={{ minWidth: 120}} noValidate autoComplete="off"  >
-              <FormControl fullWidth >
-              <InputLabel htmlFor="outlined-adornment-size-small">Net Alan</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-size-small"
-                endAdornment={<InputAdornment position="end">m2</InputAdornment>}
-                label="Net Alan"
-                type="number"
-                value={net_alan}
-                onChange={(e) => setNet_alan(e.target.value)}
-                size="small"
-                sx={{ alignItems: 'center'}}
+            
+            <Box component="form" sx={{ minWidth: 120 }}  noValidate autoComplete="off"
+           
+             >
+              <FormControl fullWidth>
+                    
+              <TextField id="outlined-basic" label="Net Alan" variant="outlined" 
+               value={net_alan}
+               onChange={(e) => setNet_alan(e.target.value)}
+               size="small"
               />
               </FormControl>
-            </Box>
+           </Box> 
         </div>
 
         <div className="glass__form__group">
-            <Box component="form" sx={{ minWidth: 120 }} noValidate autoComplete="off" >
-              <FormControl fullWidth>
-              <InputLabel htmlFor="outlined-adornment-amount">Brüt Alan</InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                endAdornment={<InputAdornment position="end">m2</InputAdornment>}
-                label="Brüt Alan"
-                type="number"
+            <Box component="form" sx={{ minWidth: 120 }}  noValidate autoComplete="off"
+              
+              >
+                <FormControl fullWidth>
+                      
+                <TextField id="outlined-basic" label="Brüt Alan" variant="outlined" 
                 value={brut_alan}
                 onChange={(e) => setBrut_alan(e.target.value)}
                 size="small"
-              />
-              </FormControl>
-            </Box>
+                />
+                </FormControl>
+            </Box> 
         </div>
 
         <div className="glass__form__group">
