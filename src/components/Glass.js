@@ -30,6 +30,8 @@ function Glass() {
   const [lat, setLat] = useState('')
   const [lng, setLng] = useState('')
   const [result, setResult] = useState(null)
+  
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -84,7 +86,7 @@ function Glass() {
                     id="demo-select-small"
                     type="string"
                     label="İlçe Adı"
-            
+                    
                     onChange={(e) => {
 
                       const konumDegerleri = {
