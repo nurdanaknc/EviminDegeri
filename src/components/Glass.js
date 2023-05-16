@@ -15,6 +15,9 @@ import Container from '@mui/material/Container';
 import s1 from './s1.svg';
 import s2 from './s2.svg';
 import s3 from './s3.svg';
+import { useForm } from 'react-hook-form';
+
+
 
 function Glass({ onLatChange, onLngChange }) {
   const [cluster_A, setCluster_A] = useState('')
@@ -34,8 +37,9 @@ function Glass({ onLatChange, onLngChange }) {
   const [lng, setLng] = useState(29.1135187)
   const [result, setResult] = useState('')
   const [step, setStep] = useState(1);
-  const [na,setNa] = useState(null);
-  const [ilceAdi, setİlce_adi] = useState(null)
+  const [ilceAdi, setİlce_adi] = useState(null);
+
+
   const reset = () => {
     setCluster_A('')
     setCluster_B('')
@@ -91,10 +95,15 @@ function Glass({ onLatChange, onLngChange }) {
         //alert(msg)
         const priceInTL = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(data.Tahmin_Edilen_Fiyat).replace(' TL', '₺');
         setResult(priceInTL)
-        setNa(net_alan)
-        reset()
+        
+       
       })
       .catch((error) => alert(`Error: ${error.message}`))
+  }
+
+  function resetPage(event){
+    reset()
+    window.location.reload();
   }
 
 
@@ -124,7 +133,7 @@ function Glass({ onLatChange, onLngChange }) {
                       type="string"
                       label="İlçe Adı"
                       variant='outlined'
-
+                      value={ilceAdi}
 
                       onChange={(e) => {
 
@@ -407,7 +416,7 @@ function Glass({ onLatChange, onLngChange }) {
                     <Select
                       labelId="demo-select-small-label"
                       id="demo-select-small"
-
+                      value={toplam_oda_sayisi}
                       label="Toplam Oda Sayısı"
                       onChange={(e) => setToplam_oda_sayisi(e.target.value)}
 
@@ -479,6 +488,7 @@ function Glass({ onLatChange, onLngChange }) {
                       id="demo-select-small"
                       type="number"
                       label="Isıtma"
+                      value={isitma}
                       onChange={(e) => setIsitma(e.target.value)}
 
                     >
@@ -504,6 +514,7 @@ function Glass({ onLatChange, onLngChange }) {
                       id="demo-select-small"
                       type="number"
                       label="Eşya Durumu"
+                      value={esya}
                       onChange={(e) => setEsya(e.target.value)}
 
                     >
@@ -528,6 +539,7 @@ function Glass({ onLatChange, onLngChange }) {
                       id="demo-select-small"
                       type="number"
                       label="Kullanım Durumu"
+                      value={kullanim_durumu}
                       onChange={(e) => setKullanim_durumu(e.target.value)}
 
                     >
@@ -552,6 +564,7 @@ function Glass({ onLatChange, onLngChange }) {
                       id="demo-select-small"
                       type="number"
                       label="Kredi Durumu"
+                      value={kredi_durumu}
                       onChange={(e) => setKredi_durumu(e.target.value)}
 
                     >
@@ -609,15 +622,63 @@ function Glass({ onLatChange, onLngChange }) {
                   </Grid>
                   <Grid item xs={12} >
                     <div className='glass-5-3'>
-                      3
+                      <Grid container columnSpacing={3}>
+                        <Grid item xs={8} marginTop={"10px;"}>
+                        Yeni bir seçim yapmak istiyor musun?
+                        </Grid>
+                        <Grid item xs ={4}>
+                          <button onClick={resetPage} className='button-4'> Seçim Yap </button>
+                        </Grid>
+
+                      </Grid>
                     </div>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item xs={6} >
                 <div className='glass-5-2'>
-                  İlçe Adı: {ilceAdi} <br/>
-                  Net alan: {na} 
+                <Grid item xs={12}> <h4>Yaptığın Seçimler</h4></Grid>
+                <Grid container rowSpacing={1.5} marginBottom={"18px;"}> 
+                 <Grid item  xs={6}>İlçe Adı:</Grid>  <Grid item  xs={6}> {ilceAdi}  </Grid>
+                 <Grid item  xs={6}>Net Alan:</Grid> <Grid item  xs={6}>{net_alan} m2 </Grid>
+                 <Grid item  xs={6}>Brüt Alan: </Grid> <Grid item  xs={6}>{brut_alan} m2  </Grid>
+                 <Grid item  xs={6}>Bina Yaşı:  </Grid> <Grid item  xs={6}> {bina_yasi} </Grid>
+                 <Grid item  xs={6}>Kat Sayısı: </Grid> <Grid item  xs={6}> {kat_sayisi}  </Grid>  
+                 <Grid item  xs={6}>Bulunduğu Kat:   </Grid>  <Grid item  xs={6}> {bulundugu_kat} </Grid>   
+                 <Grid item  xs={6}>Toplam Oda Sayısı: </Grid>   <Grid item  xs={6}>{toplam_oda_sayisi} </Grid>  
+                 <Grid item  xs={6}>Isıtma Türü: </Grid>
+                 <Grid item  xs={6}>
+                 {
+                        isitma === 1 ? "Soba" :
+                        isitma === 2 ? "Kalorifer" :
+                        isitma === 3 ? "Yerden Isırma" :
+                        ""
+                      }    </Grid> 
+                  <Grid item  xs={6}>Eşya Durumu: </Grid>  
+                  <Grid item  xs={6}>
+                   {
+                        esya === 1 ? "Eşyalı" :
+                        esya === 0 ? "Eşyasız" :
+                        esya === 2 ? "Sadece Beyaz Eşya" :
+                        esya === 3 ? "Sadece Mutfak" :
+                        ""
+                      } </Grid>  
+                  <Grid item  xs={6}>Kullanım Durumu: </Grid>
+                  <Grid item  xs={6}>
+                  {
+                        kullanim_durumu === 0 ? "Boş" :
+                        kullanim_durumu === 1 ? "Mülk Sahibi" :
+                        kullanim_durumu === 2 ? "Kiracılı" :
+                        ""
+                      } </Grid>
+                 <Grid item  xs={6}> Kredi Durumu: </Grid>
+                 <Grid item  xs={6}>
+                  {
+                        kredi_durumu === 0 ? "Krediye Uygun Değil" :
+                        kredi_durumu === 1 ? "Krediye Uygun" :
+                        ""
+                      }  </Grid>
+                </Grid> 
                 </div>
               </Grid>
             </Grid>

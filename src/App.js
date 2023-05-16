@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Navbar from './components/Navbar.js';
 import Footer from './components/Footer.js';
+
 function App() {
 
   const [lat, setLat] = useState(40.9929379);
@@ -33,7 +34,7 @@ function App() {
       <Grid style={{alignItems: "stretch"}} direction="row">
       <Grid className="title"> 
          
-         <h2>Evimin Degeri</h2> Düşüncendeki evin fiyatını tahmin eden bir makine öğrenmesi modeli   
+         <h2>Evimin Değeri</h2> Düşüncendeki evin fiyatını tahmin eden bir makine öğrenmesi modeli   
       </Grid>
         <Grid item xs={12} md={12} style={{}}>
           <Box  sx={{width: "100%"}}><Glass onLatChange={handleLatChange} onLngChange={handleLngChange} /></Box>
